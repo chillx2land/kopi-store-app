@@ -7,6 +7,7 @@ import {
   Switch,
   Dimensions,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -55,7 +56,7 @@ export const Sidebar: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.logoContainer}>
           <MaterialCommunityIcons name="coffee" size={24} color="#333333" />
@@ -113,7 +114,7 @@ export const Sidebar: React.FC = () => {
         <MaterialCommunityIcons name="logout" size={20} color="#666666" />
         <Text style={styles.logoutText}>ログアウト</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -125,9 +126,11 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderRightColor: '#E1E1E1',
     flexDirection: 'column',
+    paddingTop: Platform.OS === 'ios' ? 8 : 16,
   },
   header: {
     padding: 16,
+    paddingTop: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#E1E1E1',
   },
