@@ -209,11 +209,6 @@ export const OrdersScreen: React.FC = () => {
       <View style={styles.tabsContainer}>
         <View style={styles.tabsContent}>
           <TabButton
-            label="すべて"
-            isActive={activeTab === 'all'}
-            onPress={() => setActiveTab('all')}
-          />
-          <TabButton
             label="受付済"
             isActive={activeTab === 'pending'}
             onPress={() => setActiveTab('pending')}
@@ -232,6 +227,11 @@ export const OrdersScreen: React.FC = () => {
             label="受取済"
             isActive={activeTab === 'completed'}
             onPress={() => setActiveTab('completed')}
+          />
+          <TabButton
+            label="すべて"
+            isActive={activeTab === 'all'}
+            onPress={() => setActiveTab('all')}
           />
         </View>
       </View>
