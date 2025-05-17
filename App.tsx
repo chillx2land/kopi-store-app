@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { LoginScreen } from './src/screens/auth/LoginScreen';
 import { Sidebar } from './src/components/ui/Sidebar';
+import { DashboardScreen } from './src/screens/dashboard/DashboardScreen';
 import { AuthProvider, useAuth } from './src/contexts/AuthContext';
 
 const AppContent = () => {
@@ -15,7 +16,7 @@ const AppContent = () => {
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <Sidebar />
       <View style={{ flex: 1, backgroundColor: '#FAFAFA' }}>
-        {/* TODO: ここに各画面のコンテンツを表示 */}
+        <DashboardScreen />
       </View>
     </View>
   );
