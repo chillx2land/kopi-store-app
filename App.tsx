@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { LoginScreen } from './src/screens/auth/LoginScreen';
 import { DashboardScreen } from './src/screens/dashboard/DashboardScreen';
 import { OrdersScreen } from './src/screens/orders/OrdersScreen';
+import { MenuScreen } from './src/screens/menu/MenuScreen';
 import { Sidebar } from './src/components/ui/Sidebar';
 import { AuthProvider, useAuth } from './src/contexts/AuthContext';
 
@@ -21,7 +22,7 @@ const AppContent = () => {
       case 'orders':
         return <OrdersScreen />;
       case 'menu':
-        return <View style={{ flex: 1, backgroundColor: '#FAFAFA' }} />;
+        return <MenuScreen />;
       case 'settings':
         return <View style={{ flex: 1, backgroundColor: '#FAFAFA' }} />;
       default:
