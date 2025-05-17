@@ -8,6 +8,8 @@ import {
   Image,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // メニューカテゴリーの型定義
 type MenuStatus = '販売中' | '在庫切れ' | '非表示';
@@ -173,6 +175,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 );
 
 export const MenuScreen: React.FC = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [activeStatus, setActiveStatus] = useState<MenuStatus>('販売中');
 
   const filteredMenuItems = mockMenuItems.filter((item) => {
@@ -184,6 +187,10 @@ export const MenuScreen: React.FC = () => {
     // TODO: メニュー編集画面への遷移を実装
   };
 
+  const handlePressAdd = () => {
+    navigation.navigate('CreateMenu');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -191,7 +198,7 @@ export const MenuScreen: React.FC = () => {
           <Text style={styles.title}>メニュー管理</Text>
           <Text style={styles.subtitle}>メニューの確認と編集を行います</Text>
         </View>
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity style={styles.addButton} onPress={handlePressAdd}>
           <MaterialCommunityIcons name="plus" size={20} color="#FFFFFF" />
           <Text style={styles.addButtonText}>新規メニュー</Text>
         </TouchableOpacity>
