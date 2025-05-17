@@ -10,49 +10,30 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useAuth } from '../../contexts/AuthContext';
 
 type Route = 'dashboard' | 'orders' | 'menu' | 'settings';
 
-interface SidebarLinkProps {
-  icon: keyof typeof MaterialCommunityIcons.glyphMap;
-  label: string;
-  onPress: () => void;
-  isActive?: boolean;
+interface SidebarProps {
+  activeRoute: Route;
+  onChangeRoute: (route: Route) => void;
 }
 
-const SidebarLink: React.FC<SidebarLinkProps> = ({
-  icon,
-  label,
-  onPress,
-  isActive = false,
-}) => (
-  <TouchableOpacity
-    style={[styles.link, isActive && styles.linkActive]}
-    onPress={onPress}
-  >
-    <MaterialCommunityIcons
-      name={icon}
-      size={20}
-      color={isActive ? '#FFFFFF' : '#666666'}
-    />
-    <Text style={[styles.linkText, isActive && styles.linkTextActive]}>
-      {label}
-    </Text>
-  </TouchableOpacity>
-);
-
-export const Sidebar: React.FC = () => {
+export const Sidebar: React.FC<SidebarProps> = ({ activeRoute, onChangeRoute }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const [activeRoute, setActiveRoute] = useState<Route>('dashboard');
+  const { logout } = useAuth();
 
   const handleStoreStatusChange = (value: boolean) => {
     setIsOpen(value);
     // TODO: API呼び出しで店舗状態を更新
   };
 
-  const handleNavigation = (route: Route) => {
-    setActiveRoute(route);
-    // TODO: 画面遷移の実装
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('ログアウトに失敗しました:', error);
+    }
   };
 
   return (
@@ -84,33 +65,61 @@ export const Sidebar: React.FC = () => {
       </View>
 
       <View style={styles.navigation}>
-        <SidebarLink
-          icon="view-dashboard-outline"
-          label="ダッシュボード"
-          onPress={() => handleNavigation('dashboard')}
-          isActive={activeRoute === 'dashboard'}
-        />
-        <SidebarLink
-          icon="clipboard-text-outline"
-          label="注文管理"
-          onPress={() => handleNavigation('orders')}
-          isActive={activeRoute === 'orders'}
-        />
-        <SidebarLink
-          icon="book-open-outline"
-          label="メニュー管理"
-          onPress={() => handleNavigation('menu')}
-          isActive={activeRoute === 'menu'}
-        />
-        <SidebarLink
-          icon="cog-outline"
-          label="店舗設定"
-          onPress={() => handleNavigation('settings')}
-          isActive={activeRoute === 'settings'}
-        />
+        <TouchableOpacity
+          style={[styles.link, activeRoute === 'dashboard' && styles.linkActive]}
+          onPress={() => onChangeRoute('dashboard')}
+        >
+          <MaterialCommunityIcons
+            name="view-dashboard-outline"
+            size={20}
+            color={activeRoute === 'dashboard' ? '#FFFFFF' : '#666666'}
+          />
+          <Text style={[styles.linkText, activeRoute === 'dashboard' && styles.linkTextActive]}>
+            ダッシュボード
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.link, activeRoute === 'orders' && styles.linkActive]}
+          onPress={() => onChangeRoute('orders')}
+        >
+          <MaterialCommunityIcons
+            name="clipboard-text-outline"
+            size={20}
+            color={activeRoute === 'orders' ? '#FFFFFF' : '#666666'}
+          />
+          <Text style={[styles.linkText, activeRoute === 'orders' && styles.linkTextActive]}>
+            注文管理
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.link, activeRoute === 'menu' && styles.linkActive]}
+          onPress={() => onChangeRoute('menu')}
+        >
+          <MaterialCommunityIcons
+            name="book-open-outline"
+            size={20}
+            color={activeRoute === 'menu' ? '#FFFFFF' : '#666666'}
+          />
+          <Text style={[styles.linkText, activeRoute === 'menu' && styles.linkTextActive]}>
+            メニュー管理
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.link, activeRoute === 'settings' && styles.linkActive]}
+          onPress={() => onChangeRoute('settings')}
+        >
+          <MaterialCommunityIcons
+            name="cog-outline"
+            size={20}
+            color={activeRoute === 'settings' ? '#FFFFFF' : '#666666'}
+          />
+          <Text style={[styles.linkText, activeRoute === 'settings' && styles.linkTextActive]}>
+            店舗設定
+          </Text>
+        </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.logoutButton}>
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <MaterialCommunityIcons name="logout" size={20} color="#666666" />
         <Text style={styles.logoutText}>ログアウト</Text>
       </TouchableOpacity>
