@@ -1,22 +1,39 @@
 import React from 'react';
 import { View } from 'react-native';
 import { LoginScreen } from './src/screens/auth/LoginScreen';
-import { Sidebar } from './src/components/ui/Sidebar';
 import { DashboardScreen } from './src/screens/dashboard/DashboardScreen';
+import { OrdersScreen } from './src/screens/orders/OrdersScreen';
+import { Sidebar } from './src/components/ui/Sidebar';
 import { AuthProvider, useAuth } from './src/contexts/AuthContext';
+
+type Route = 'dashboard' | 'orders' | 'menu' | 'settings';
 
 const AppContent = () => {
   const { user } = useAuth();
+  const [activeRoute, setActiveRoute] = React.useState<Route>('dashboard');
 
   if (!user) {
     return <LoginScreen />;
   }
 
+  const renderContent = () => {
+    switch (activeRoute) {
+      case 'orders':
+        return <OrdersScreen />;
+      case 'menu':
+        return <View style={{ flex: 1, backgroundColor: '#FAFAFA' }} />;
+      case 'settings':
+        return <View style={{ flex: 1, backgroundColor: '#FAFAFA' }} />;
+      default:
+        return <DashboardScreen />;
+    }
+  };
+
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
-      <Sidebar />
+      <Sidebar activeRoute={activeRoute} onChangeRoute={setActiveRoute} />
       <View style={{ flex: 1, backgroundColor: '#FAFAFA' }}>
-        <DashboardScreen />
+        {renderContent()}
       </View>
     </View>
   );
