@@ -13,11 +13,12 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const { login, isLoading } = useAuth();
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -25,16 +26,16 @@ export const LoginScreen = () => {
       return;
     }
 
-    setIsLoading(true);
     try {
-      // TODO: 認証処理を実装
-      // await login(email, password);
-      console.log('Login attempt with:', { email, password });
+      await login(email, password);
     } catch (error) {
-      Alert.alert('エラー', 'ログインに失敗しました');
-    } finally {
-      setIsLoading(false);
+      Alert.alert('エラー', error instanceof Error ? error.message : 'ログインに失敗しました');
     }
+  };
+
+  const handleDemoLogin = () => {
+    setEmail('demo@kopi.com');
+    setPassword('password');
   };
 
   return (
@@ -92,9 +93,11 @@ export const LoginScreen = () => {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.demoText}>
-            デモアカウント: demo@kopi.com / password
-          </Text>
+          <TouchableOpacity onPress={handleDemoLogin}>
+            <Text style={styles.demoText}>
+              デモアカウント: demo@kopi.com / password
+            </Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
