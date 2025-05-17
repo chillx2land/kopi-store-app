@@ -14,7 +14,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kopi.store-app"
+      "bundleIdentifier": "com.kopi.store-app",
+      "appleTeamId": "HMP3AHQM36"
     },
     "android": {
       "adaptiveIcon": {
