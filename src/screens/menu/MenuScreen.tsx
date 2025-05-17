@@ -183,8 +183,7 @@ export const MenuScreen: React.FC = () => {
   });
 
   const handlePressEdit = (id: string) => {
-    console.log('メニュー編集:', id);
-    // TODO: メニュー編集画面への遷移を実装
+    navigation.navigate('EditMenu', { id });
   };
 
   const handlePressAdd = () => {

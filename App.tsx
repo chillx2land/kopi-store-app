@@ -7,6 +7,7 @@ import { DashboardScreen } from './src/screens/dashboard/DashboardScreen';
 import { OrdersScreen } from './src/screens/orders/OrdersScreen';
 import { MenuScreen } from './src/screens/menu/MenuScreen';
 import { CreateMenuScreen } from './src/screens/menu/CreateMenuScreen';
+import { EditMenuScreen } from './src/screens/menu/EditMenuScreen';
 import { Sidebar } from './src/components/ui/Sidebar';
 import { AuthProvider, useAuth } from './src/contexts/AuthContext';
 
@@ -16,6 +17,7 @@ type RootStackParamList = {
   Orders: undefined;
   Menu: undefined;
   CreateMenu: undefined;
+  EditMenu: { id: string };
   Settings: undefined;
 };
 
@@ -44,6 +46,14 @@ const AppContent = () => {
             <Stack.Screen
               name="CreateMenu"
               component={CreateMenuScreen}
+              options={{
+                headerShown: false,
+                presentation: 'modal',
+              }}
+            />
+            <Stack.Screen
+              name="EditMenu"
+              component={EditMenuScreen}
               options={{
                 headerShown: false,
                 presentation: 'modal',
