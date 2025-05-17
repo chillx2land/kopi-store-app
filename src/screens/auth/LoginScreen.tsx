@@ -104,7 +104,7 @@ export const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FAFAFA',
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#333333',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 8,
+    color: '#333333',
   },
   subtitle: {
     fontSize: 16,
@@ -164,16 +165,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
+    color: '#333333',
+    backgroundColor: '#FFFFFF',
   },
   button: {
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#333333',
     borderRadius: 8,
     padding: 16,
     alignItems: 'center',
     marginTop: 10,
   },
   buttonDisabled: {
-    backgroundColor: '#A1A1A1',
+    backgroundColor: '#999999',
   },
   buttonText: {
     color: '#FFFFFF',
