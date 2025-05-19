@@ -10,6 +10,7 @@ import { CreateMenuScreen } from './src/screens/menu/CreateMenuScreen';
 import { EditMenuScreen } from './src/screens/menu/EditMenuScreen';
 import { Sidebar } from './src/components/ui/Sidebar';
 import { AuthProvider, useAuth } from './src/contexts/AuthContext';
+import SettingsScreen from './src/screens/dashboard/settings/index';
 
 type Route = 'dashboard' | 'orders' | 'menu' | 'settings';
 type RootStackParamList = {
@@ -27,9 +28,9 @@ const AppContent = () => {
   const { user } = useAuth();
   const [activeRoute, setActiveRoute] = React.useState<Route>('dashboard');
 
-  if (!user) {
-    return <LoginScreen />;
-  }
+  // if (!user) {
+  //   return <LoginScreen />;
+  // }
 
   const renderContent = () => {
     switch (activeRoute) {
@@ -62,7 +63,7 @@ const AppContent = () => {
           </Stack.Navigator>
         );
       case 'settings':
-        return <View style={{ flex: 1, backgroundColor: '#FAFAFA' }} />;
+        return <SettingsScreen />;
       default:
         return <DashboardScreen />;
     }
