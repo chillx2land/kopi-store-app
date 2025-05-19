@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as ImagePicker from 'expo-image-picker';
 import BusinessHoursSection from '../../../components/ui/BusinessHoursSection';
 
 type TabType = 'store-info' | 'business-hours' | 'special-days' | 'order-settings';
@@ -11,6 +12,8 @@ interface StoreInfo {
   phone: string;
   description: string;
   maxOrdersPer15Min: number;
+  storeImage: string | null;
+  storeIcon: string | null;
   openingHours: {
     [key: string]: {
       open: string;
@@ -28,6 +31,8 @@ export default function SettingsScreen() {
     phone: "03-1234-5678",
     description: "渋谷駅から徒歩5分のカフェです。こだわりのコーヒーと手作りスイーツをご提供しています。",
     maxOrdersPer15Min: 5,
+    storeImage: null,
+    storeIcon: null,
     openingHours: {
       monday: { open: "08:00", close: "20:00", isOpen: true },
       tuesday: { open: "08:00", close: "20:00", isOpen: true },
@@ -38,6 +43,29 @@ export default function SettingsScreen() {
       sunday: { open: "09:00", close: "19:00", isOpen: true },
     },
   });
+
+  const handleImagePick = async (type: 'storeImage' | 'storeIcon') => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    
+    if (permissionResult.granted === false) {
+      alert('画像を選択するためには、カメラロールへのアクセス許可が必要です。');
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: type === 'storeImage' ? [16, 9] : [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setStoreInfo(prev => ({
+        ...prev,
+        [type]: result.assets[0].uri,
+      }));
+    }
+  };
 
   const handleUpdateBusinessHours = (newHours: StoreInfo['openingHours']) => {
     setStoreInfo(prev => ({
@@ -86,6 +114,49 @@ export default function SettingsScreen() {
           multiline
           numberOfLines={4}
         />
+      </View>
+
+      <View style={styles.imageSection}>
+        <Text style={styles.sectionTitle}>店舗画像</Text>
+        <View style={styles.imageContainer}>
+          <Text style={styles.label}>店舗の写真</Text>
+          <TouchableOpacity
+            style={styles.imagePickerButton}
+            onPress={() => handleImagePick('storeImage')}
+          >
+            {storeInfo.storeImage ? (
+              <Image
+                source={{ uri: storeInfo.storeImage }}
+                style={styles.previewImage}
+                resizeMode="cover"
+              />
+            ) : (
+              <View style={styles.placeholderContainer}>
+                <Text style={styles.placeholderText}>タップして画像を選択</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.imageContainer}>
+          <Text style={styles.label}>店舗のアイコン</Text>
+          <TouchableOpacity
+            style={[styles.imagePickerButton, styles.iconPickerButton]}
+            onPress={() => handleImagePick('storeIcon')}
+          >
+            {storeInfo.storeIcon ? (
+              <Image
+                source={{ uri: storeInfo.storeIcon }}
+                style={styles.previewIcon}
+                resizeMode="cover"
+              />
+            ) : (
+              <View style={styles.placeholderContainer}>
+                <Text style={styles.placeholderText}>タップして画像を選択</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -212,14 +283,14 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: '#007AFF',
+    borderBottomColor: '#333333',
   },
   tabText: {
     fontSize: 14,
     color: '#666',
   },
   activeTabText: {
-    color: '#007AFF',
+    color: '#333333',
     fontWeight: 'bold',
   },
   section: {
@@ -253,5 +324,44 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     fontStyle: 'italic',
+  },
+  imageSection: {
+    marginTop: 24,
+  },
+  imageContainer: {
+    marginBottom: 16,
+  },
+  imagePickerButton: {
+    width: '100%',
+    height: 200,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderStyle: 'dashed',
+    overflow: 'hidden',
+  },
+  iconPickerButton: {
+    height: 120,
+    width: 120,
+  },
+  previewImage: {
+    width: '100%',
+    height: '100%',
+  },
+  previewIcon: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 8,
+  },
+  placeholderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+  },
+  placeholderText: {
+    fontSize: 14,
+    color: '#666',
   },
 }); 
