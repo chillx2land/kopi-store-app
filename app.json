@@ -2,7 +2,7 @@
   "expo": {
     "name": "kopi-store-app",
     "slug": "kopi-store-app",
-    "version": "1.0.0",
+    "version": "0.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -30,8 +30,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "783e411c-fc6f-4042-b14a-0faccb77be9b"
+        "projectId": "158efee6-7b4b-4519-a05a-a737b2f0e0f0"
       }
-    }
+    },
+    "owner": "yshkd"
   }
 }
