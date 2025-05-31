@@ -15,7 +15,8 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kopi.store-app",
-      "appleTeamId": "HMP3AHQM36"
+      "appleTeamId": "HMP3AHQM36",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,11 +24,16 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.kopi.storeapp"
+      "package": "com.kopi.storeapp",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth"
+    ],
     "extra": {
       "eas": {
         "projectId": "158efee6-7b4b-4519-a05a-a737b2f0e0f0"
