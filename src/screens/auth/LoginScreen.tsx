@@ -18,18 +18,35 @@ import { useAuth } from '../../contexts/AuthContext';
 export const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const { login, isLoading } = useAuth();
 
+  const handleEmailChange = (text: string) => {
+    setEmail(text);
+    if (errorMessage) {
+      setErrorMessage('');
+    }
+  };
+
+  const handlePasswordChange = (text: string) => {
+    setPassword(text);
+    if (errorMessage) {
+      setErrorMessage('');
+    }
+  };
+
   const handleLogin = async () => {
+    setErrorMessage('');
+
     if (!email || !password) {
-      Alert.alert('エラー', '全ての項目を入力してください');
+      setErrorMessage('全ての項目を入力してください');
       return;
     }
 
     try {
       await login(email, password);
     } catch (error) {
-      Alert.alert('エラー', error instanceof Error ? error.message : 'ログインに失敗しました');
+      setErrorMessage(error instanceof Error ? error.message : 'ログインに失敗しました');
     }
   };
 
@@ -53,10 +70,10 @@ export const LoginScreen = () => {
             <View style={styles.inputContainer}>
               <Text style={styles.label}>メールアドレス</Text>
               <TextInput
-                style={styles.input}
+                style={[styles.input, errorMessage && styles.inputError]}
                 placeholder="example@kopi.com"
                 value={email}
-                onChangeText={setEmail}
+                onChangeText={handleEmailChange}
                 autoCapitalize="none"
                 keyboardType="email-address"
                 autoCorrect={false}
@@ -66,10 +83,10 @@ export const LoginScreen = () => {
             <View style={styles.inputContainer}>
               <Text style={styles.label}>パスワード</Text>
               <TextInput
-                style={styles.input}
+                style={[styles.input, errorMessage && styles.inputError]}
                 placeholder="パスワードを入力"
                 value={password}
-                onChangeText={setPassword}
+                onChangeText={handlePasswordChange}
                 secureTextEntry
                 autoCapitalize="none"
               />
@@ -86,6 +103,13 @@ export const LoginScreen = () => {
                 <Text style={styles.buttonText}>ログイン</Text>
               )}
             </TouchableOpacity>
+
+            {errorMessage ? (
+              <View style={styles.errorContainer}>
+                <MaterialCommunityIcons name="alert-circle" size={16} color="#E53E3E" />
+                <Text style={styles.errorText}>{errorMessage}</Text>
+              </View>
+            ) : null}
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -160,6 +184,9 @@ const styles = StyleSheet.create({
     color: '#333333',
     backgroundColor: '#FFFFFF',
   },
+  inputError: {
+    borderColor: '#E53E3E',
+  },
   button: {
     backgroundColor: '#333333',
     borderRadius: 8,
@@ -174,5 +201,21 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
+  },
+  errorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 12,
+    padding: 12,
+    backgroundColor: '#FED7D7',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#FEB2B2',
+  },
+  errorText: {
+    marginLeft: 8,
+    fontSize: 14,
+    color: '#E53E3E',
+    flex: 1,
   },
 }); 
