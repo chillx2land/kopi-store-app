@@ -2036,6 +2036,30 @@ PODS:
     - React-logger (= 0.79.2)
     - React-perflogger (= 0.79.2)
     - React-utils (= 0.79.2)
+  - RNDateTimePicker (8.3.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNScreens (4.10.0):
     - DoubleConversion
     - glog
@@ -2179,6 +2203,7 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -2360,6 +2385,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   Yoga:
@@ -2368,22 +2395,22 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
-  EXConstants: be238322d57d084dc055dbd5d6fe6479510504ce
-  EXImageLoader: ab4fcf9240cf3636a83c00e3fc5229d692899428
-  EXJSONUtils: 1d3e4590438c3ee593684186007028a14b3686cd
-  EXManifests: 75cba7539b60676be1911d024252a11b846085ed
-  Expo: 22dc35ce67dc330d6a2d80598f29c654fe276830
-  expo-dev-client: b32e7e9c0a420a5256e38b12e8eebbf14a7031ed
-  expo-dev-launcher: d506f26639ee2676977c4a8c47668a77d2d09d23
-  expo-dev-menu: 2aa06bd228fe6a52e2276b71c59b90a8ec88c8a3
-  expo-dev-menu-interface: 609c35ae8b97479cdd4c9e23c8cf6adc44beea0e
-  ExpoAsset: 3ea3275cca6a7793b3d36fbf1075c590f803fbcb
-  ExpoFileSystem: 3a98ca2a6f13674ecfd97327d1b44a8ace444cbd
-  ExpoFont: 312c73403bbd4f98e1d6a5330641a56292583cd2
-  ExpoImagePicker: d2fff488a0738343a3cc21e98544ee9feafaa0e6
-  ExpoKeepAwake: e8dedc115d9f6f24b153ccd2d1d8efcdfd68a527
-  ExpoModulesCore: b57f1f9dbf35e11a01ac115ded48edd14dcd9b47
-  EXUpdatesInterface: 64f35449b8ef89ce08cdd8952a4d119b5de6821d
+  EXConstants: 5cdbec5ac2ecec72eb5f4618409dc0700e9a002d
+  EXImageLoader: 8065790350b8d3f89c8d41cce2634257aa6884bf
+  EXJSONUtils: 17d02d9aa9a36bfa103647f7ffee48a4084c802a
+  EXManifests: 2b3dec0dfe46dc45cdcd7736ac11563cf7d7d055
+  Expo: 91c209c030422cd6ce3df70a6991062c3acbbe4e
+  expo-dev-client: ee019d51b3d33ce428c6c77a7e21c1a24f0c88e6
+  expo-dev-launcher: ddec872f6ef04a4e50f52577d5e3b1a0daa7c8df
+  expo-dev-menu: 146fa150be68c3cc61b33c9113eaab26d1464536
+  expo-dev-menu-interface: 747509bcbf5cd804678660cb8c602f99e93af5ed
+  ExpoAsset: b198b65589cfaf641581313af003bc95d5eae477
+  ExpoFileSystem: 20b21dcaa040d2b86161e6872b71dd9e880697be
+  ExpoFont: 78ec2a065f6535b70cbb9af2c5362cffcd6255cd
+  ExpoImagePicker: e44e2a0319606cc83f4407e207b429eb63617b3e
+  ExpoKeepAwake: 3465f18421ca90f156fdfe2b43eadb3df054316c
+  ExpoModulesCore: f025bd1e854635a37d9bc9031d31c7e02d83f3a2
+  EXUpdatesInterface: 9ce2c4275e0d714c5b233e497aa7de70337571d5
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
   FBLazyVector: 84b955f7b4da8b895faf5946f73748267347c975
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
@@ -2420,7 +2447,7 @@ SPEC CHECKSUMS:
   React-logger: 368570a253f00879a1e4fea24ed4047e72e7bbf3
   React-Mapbuffer: c04fcda1c6281fc0a6824c7dcc1633dd217ac1ec
   React-microtasksnativemodule: ca2804a25fdcefffa0aa942aa23ab53b99614a34
-  react-native-safe-area-context: 00d03dc688ba86664be66f9e3f203fc7d747d899
+  react-native-safe-area-context: 3d15caca0f9851e3e92b5a56057335e4ac6f847d
   React-NativeModulesApple: 452b86b29fae99ed0a4015dca3ad9cd222f88abf
   React-oscompat: ef5df1c734f19b8003e149317d041b8ce1f7d29c
   React-perflogger: 6fd2f6811533e9c19a61e855c3033eecbf4ad2a0
@@ -2452,6 +2479,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: d5dcc564f129632276bd3184e60f053fcd574d6b
   ReactCodegen: fda99a79c866370190e162083a35602fdc314e5d
   ReactCommon: 4d0da92a5eb8da86c08e3ec34bd23ab439fb2461
+  RNDateTimePicker: e1c0a1fc97504d7794f8e688ae26861ab7b4beec
   RNScreens: c5c07a86e4088ce92f0d3854082250dfa9c61f75
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 9f110fc4b7aa538663cba3c14cbb1c335f43c13f
