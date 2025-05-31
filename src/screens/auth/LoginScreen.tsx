@@ -33,11 +33,6 @@ export const LoginScreen = () => {
     }
   };
 
-  const handleDemoLogin = () => {
-    setEmail('demo@kopi.com');
-    setPassword('password');
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
@@ -92,12 +87,6 @@ export const LoginScreen = () => {
               )}
             </TouchableOpacity>
           </View>
-
-          <TouchableOpacity onPress={handleDemoLogin}>
-            <Text style={styles.demoText}>
-              デモアカウント: demo@kopi.com / password
-            </Text>
-          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -185,11 +174,5 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
-  },
-  demoText: {
-    textAlign: 'center',
-    marginTop: 20,
-    color: '#666666',
-    fontSize: 14,
   },
 }); 

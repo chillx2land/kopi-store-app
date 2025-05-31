@@ -28,9 +28,9 @@ const AppContent = () => {
   const { user } = useAuth();
   const [activeRoute, setActiveRoute] = React.useState<Route>('dashboard');
 
-  // if (!user) {
-  //   return <LoginScreen />;
-  // }
+  if (!user) {
+    return <LoginScreen />;
+  }
 
   const renderContent = () => {
     switch (activeRoute) {
